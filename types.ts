@@ -13,7 +13,7 @@ export interface MathSection {
 }
 
 export interface VizConfig {
-  type: 'linear-regression' | 'k-means' | 'neural-network' | 'none';
+  type: 'linear-regression' | 'k-means' | 'neural-network' | 'pca' | 'none';
   initialData?: any;
 }
 

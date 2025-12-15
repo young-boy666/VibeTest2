@@ -70,5 +70,28 @@ Instead of explicitly programming rules (e.g., "if x > 5 then do y"), we provide
     ],
     useCases: ['Customer Segmentation', 'Document Clustering', 'Image Compression'],
     viz: { type: 'k-means' }
+  },
+  {
+    id: 'pca',
+    title: 'Principal Component Analysis',
+    type: LearningType.UNSUPERVISED,
+    description: 'Dimensionality reduction that preserves the most important patterns in the data.',
+    content: `Principal Component Analysis (PCA) is a technique used to emphasize variation and bring out strong patterns in a dataset. It's often used to make data easy to explore and visualize.
+    
+It works by finding the "principal components" - the directions where there is the most variance, the most information. It then projects the data onto these components, allowing us to reduce dimensions (e.g., from 3D to 2D) with minimal loss of information.`,
+    math: [
+      {
+        title: 'Covariance Matrix',
+        content: 'Measures how two variables change together.',
+        formula: '\\Sigma = \\frac{1}{m} \\sum_{i=1}^{m} (x^{(i)})(x^{(i)})^T'
+      },
+      {
+        title: 'Eigenvalue Equation',
+        content: 'Finding vectors (u) that only scale (by lambda) when transformed.',
+        formula: '\\Sigma u = \\lambda u'
+      }
+    ],
+    useCases: ['Data Visualization', 'Noise Reduction', 'Feature Extraction'],
+    viz: { type: 'pca' }
   }
 ];

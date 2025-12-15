@@ -4,6 +4,7 @@ import { MathBlock } from './MathBlock';
 import { LinearRegressionViz } from './viz/LinearRegressionViz';
 import { KMeansViz } from './viz/KMeansViz';
 import { NeuralNetViz } from './viz/NeuralNetViz';
+import { PCAViz } from './viz/PCAViz';
 
 interface ContentAreaProps {
   topic: Topic;
@@ -15,6 +16,7 @@ export const ContentArea: React.FC<ContentAreaProps> = ({ topic }) => {
       case 'linear-regression': return <LinearRegressionViz />;
       case 'k-means': return <KMeansViz />;
       case 'neural-network': return <NeuralNetViz />;
+      case 'pca': return <PCAViz />;
       default: return null;
     }
   };
