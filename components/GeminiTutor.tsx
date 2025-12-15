@@ -3,6 +3,8 @@ import { X, Send, BrainCircuit, Sparkles } from 'lucide-react';
 import { Topic, ChatMessage } from '../types';
 import { streamGeminiResponse } from '../services/geminiService';
 import ReactMarkdown from 'react-markdown';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 interface GeminiTutorProps {
   isOpen: boolean;
@@ -103,8 +105,13 @@ export const GeminiTutor: React.FC<GeminiTutorProps> = ({ isOpen, onClose, curre
                   <Sparkles size={14} className="animate-pulse" /> Thinking...
                 </div>
               ) : (
-                <div className="prose prose-invert prose-sm">
-                   <ReactMarkdown>{msg.text}</ReactMarkdown>
+                <div className="prose prose-invert prose-sm overflow-x-auto">
+                   <ReactMarkdown
+                     remarkPlugins={[remarkMath]}
+                     rehypePlugins={[rehypeKatex]}
+                   >
+                     {msg.text}
+                   </ReactMarkdown>
                 </div>
               )}
             </div>

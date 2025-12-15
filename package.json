@@ -15,6 +15,9 @@
     "recharts": "^3.6.0",
     "d3": "^7.9.0",
     "react-markdown": "^10.1.0",
+    "remark-math": "^6.0.0",
+    "rehype-katex": "^7.0.0",
+    "katex": "^0.16.9",
     "@google/genai": "^1.33.0"
   },
   "devDependencies": {
