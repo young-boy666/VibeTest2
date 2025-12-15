@@ -1,6 +1,6 @@
 import React from 'react';
 import { Topic, TopicId, LearningType } from '../types';
-import { ChevronDown, Layers, BookOpen, Activity, Grid, ChevronRight, GraduationCap } from 'lucide-react';
+import { ChevronDown, Activity, Grid, ChevronRight, GraduationCap } from 'lucide-react';
 
 interface TopNavProps {
   topics: Topic[];
@@ -16,18 +16,8 @@ export const TopNav: React.FC<TopNavProps> = ({ topics, activeTopicId, onSelectT
     return acc;
   }, {} as Record<LearningType, Topic[]>);
 
-  // Configuration for the top-level sections
+  // Configuration for the top-level sections (Removed General/Intro as it's now the home page)
   const sections = [
-    { 
-      type: LearningType.GENERAL, 
-      label: 'Introduction', 
-      icon: BookOpen, 
-      color: 'text-emerald-400', 
-      accent: 'border-emerald-500/50',
-      bgHover: 'group-hover:bg-emerald-500/10',
-      textHover: 'group-hover:text-emerald-300',
-      alignSubMenu: 'left'
-    },
     { 
       type: LearningType.SUPERVISED, 
       label: 'Supervised Learning', 
@@ -63,23 +53,49 @@ export const TopNav: React.FC<TopNavProps> = ({ topics, activeTopicId, onSelectT
 
   return (
     <nav className="w-full bg-slate-950 border-b border-slate-800/60 h-24 flex items-center justify-between px-6 lg:px-12 shadow-2xl z-50 relative shrink-0">
-      {/* Brand */}
-      <div className="flex items-center gap-4 min-w-fit">
-        <div className="p-2.5 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-xl shadow-lg shadow-emerald-900/20 transform hover:scale-105 transition-transform duration-300">
-          <Layers className="text-white" size={26} />
-        </div>
-        <div className="hidden md:block">
-          <span className="font-bold text-2xl text-white tracking-tight block leading-none">
-            ML Master
-          </span>
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1 block">
-            Interactive Guide
-          </span>
-        </div>
-      </div>
+      {/* Brand / Home Link */}
+      <button 
+        onClick={() => onSelectTopic('intro')}
+        className="flex items-center gap-4 min-w-fit mr-8 cursor-pointer focus:outline-none group/brand"
+      >
+        <div className="w-12 h-12 relative flex items-center justify-center transform group-hover/brand:scale-110 group-hover/brand:rotate-6 transition-transform duration-300">
+           {/* Custom Cartoon Beer Pint Logo */}
+           <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-lg" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="beerGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="10%" stopColor="#fbbf24" /> {/* Amber 400 */}
+                  <stop offset="100%" stopColor="#d97706" /> {/* Amber 600 */}
+                </linearGradient>
+              </defs>
+              
+              {/* Handle */}
+              <path d="M72 35 C 85 35, 92 42, 92 52 C 92 62, 85 70, 72 72" stroke="#fbbf24" strokeWidth="7" strokeLinecap="round" />
+              
+              {/* Glass Body */}
+              <path d="M28 20 L 32 80 C 33 88, 38 92, 45 92 L 63 92 C 70 92, 75 88, 76 80 L 80 20" fill="url(#beerGradient)" stroke="#b45309" strokeWidth="2" />
+              
+              {/* Bubbles */}
+              <circle cx="45" cy="50" r="2" fill="white" opacity="0.4" className="animate-pulse" />
+              <circle cx="55" cy="70" r="3" fill="white" opacity="0.4" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
+              <circle cx="60" cy="40" r="1.5" fill="white" opacity="0.4" className="animate-pulse" style={{ animationDelay: '1s' }} />
 
-      {/* Main Navigation */}
-      <div className="flex-1 flex items-center justify-center gap-2 lg:gap-8 h-full">
+              {/* Foam (Overflowing) */}
+              <path d="M25 20 C 25 12, 35 12, 38 18 C 40 10, 50 10, 54 16 C 58 8, 70 8, 74 16 C 78 12, 85 15, 83 22 L 25 22 Z" fill="white" stroke="#e5e7eb" strokeWidth="1" />
+              <path d="M82 22 Q 88 28, 86 38" stroke="white" strokeWidth="5" strokeLinecap="round" /> {/* Drip */}
+           </svg>
+        </div>
+        <div className="hidden md:block text-left">
+          <span className="font-bold text-2xl text-white tracking-tight block leading-none group-hover/brand:text-emerald-400 transition-colors">
+            ML Made Easy
+          </span>
+          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em] mt-1 block group-hover/brand:text-slate-400">
+            cool website
+          </span>
+        </div>
+      </button>
+
+      {/* Main Navigation - Pushed to the right */}
+      <div className="flex-1 flex items-center justify-end gap-2 lg:gap-8 h-full">
         {sections.map((section) => {
           const sectionTopics = groupedTopics[section.type] || [];
           const Icon = section.icon;
@@ -104,11 +120,11 @@ export const TopNav: React.FC<TopNavProps> = ({ topics, activeTopicId, onSelectT
               </button>
 
               {/* Main Dropdown (Topics) */}
-              <div className="absolute top-[85%] left-1/2 -translate-x-1/2 pt-4 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top z-50">
+              <div className="absolute top-[85%] right-0 pt-4 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform origin-top z-50">
                 <div className="bg-slate-950/95 backdrop-blur-2xl border border-slate-800 rounded-2xl shadow-2xl overflow-visible p-2 ring-1 ring-white/5 flex flex-col gap-1">
                   
-                  {/* Dropdown Header Arrow */}
-                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-slate-950 border-t border-l border-slate-800 rotate-45"></div>
+                  {/* Dropdown Header Arrow - Aligned to rightish since menu is right aligned mostly */}
+                  <div className="absolute -top-2 right-10 w-4 h-4 bg-slate-950 border-t border-l border-slate-800 rotate-45"></div>
 
                   {sectionTopics.length === 0 && (
                     <div className="p-4 text-center text-slate-500 text-sm italic">Coming Soon</div>
@@ -137,7 +153,7 @@ export const TopNav: React.FC<TopNavProps> = ({ topics, activeTopicId, onSelectT
                         {/* Sub-menu (Sections) - Pops out to side */}
                         <div 
                           className={`
-                            absolute top-0 ${section.alignSubMenu === 'left' ? 'left-[98%] pl-2' : 'right-[98%] pr-2'} 
+                            absolute top-0 right-[98%] pr-2 
                             w-60 opacity-0 invisible group-hover/topic:opacity-100 group-hover/topic:visible transition-all duration-200 z-50
                           `}
                         >
@@ -193,13 +209,6 @@ export const TopNav: React.FC<TopNavProps> = ({ topics, activeTopicId, onSelectT
             </div>
           );
         })}
-      </div>
-      
-      {/* Spacer / Right Action */}
-      <div className="min-w-fit hidden lg:flex items-center justify-end">
-          <div className="px-4 py-1.5 rounded-full bg-slate-900 border border-slate-800 text-xs font-mono text-slate-500">
-             v1.0.0
-          </div>
       </div>
     </nav>
   );
