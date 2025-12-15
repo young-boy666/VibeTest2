@@ -25,23 +25,23 @@ export const ContentArea: React.FC<ContentAreaProps> = ({ topic }) => {
 
   return (
     <div className="animate-fadeIn">
-      {/* Header */}
-      <div className="mb-10">
+      {/* Header & Overview */}
+      <div id="overview" className="mb-10 scroll-mt-24">
         <span className="text-emerald-500 font-mono text-sm uppercase tracking-widest">{topic.type}</span>
         <h1 className="text-4xl lg:text-5xl font-extrabold text-white mt-2 mb-4 tracking-tight">{topic.title}</h1>
-        <p className="text-xl text-slate-400 leading-relaxed max-w-3xl border-l-4 border-emerald-500 pl-6">
+        <p className="text-xl text-slate-400 leading-relaxed max-w-3xl border-l-4 border-emerald-500 pl-6 mb-8">
           {topic.description}
         </p>
-      </div>
-
-      {/* Main Content Text */}
-      <div className="prose prose-invert prose-lg max-w-none text-slate-300 mb-12">
-        <p className="whitespace-pre-line">{topic.content}</p>
+        
+        {/* Main Content Text */}
+        <div className="prose prose-invert prose-lg max-w-none text-slate-300">
+          <p className="whitespace-pre-line">{topic.content}</p>
+        </div>
       </div>
 
       {/* Visualization Section */}
       {topic.viz.type !== 'none' && (
-        <div className="mb-16">
+        <div id="viz" className="mb-16 scroll-mt-24">
           <div className="flex items-center gap-4 mb-6">
              <div className="h-px bg-slate-800 flex-1"></div>
              <span className="text-slate-500 text-sm font-semibold uppercase tracking-widest">Interactive Visualization</span>
@@ -61,14 +61,16 @@ export const ContentArea: React.FC<ContentAreaProps> = ({ topic }) => {
           </div>
           <div className="grid gap-6">
             {topic.math.map((m, idx) => (
-              <MathBlock key={idx} title={m.title} formula={m.formula || ''} description={m.content} />
+              <div key={idx} id={`math-${idx}`} className="scroll-mt-24">
+                <MathBlock title={m.title} formula={m.formula || ''} description={m.content} />
+              </div>
             ))}
           </div>
         </div>
       )}
 
       {/* Use Cases */}
-      <div className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800">
+      <div id="usecases" className="bg-slate-900/50 p-8 rounded-2xl border border-slate-800 scroll-mt-24">
         <h3 className="text-xl font-bold text-white mb-6">Real World Use Cases</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {topic.useCases.map((uc, i) => (
