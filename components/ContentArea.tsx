@@ -5,6 +5,7 @@ import { LinearRegressionViz } from './viz/LinearRegressionViz';
 import { KMeansViz } from './viz/KMeansViz';
 import { NeuralNetViz } from './viz/NeuralNetViz';
 import { PCAViz } from './viz/PCAViz';
+import { LogisticRegressionViz } from './viz/LogisticRegressionViz';
 
 interface ContentAreaProps {
   topic: Topic;
@@ -14,6 +15,7 @@ export const ContentArea: React.FC<ContentAreaProps> = ({ topic }) => {
   const renderViz = () => {
     switch (topic.viz.type) {
       case 'linear-regression': return <LinearRegressionViz />;
+      case 'logistic-regression': return <LogisticRegressionViz />;
       case 'k-means': return <KMeansViz />;
       case 'neural-network': return <NeuralNetViz />;
       case 'pca': return <PCAViz />;
